@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import noImage from '../../assets/images/big/no-item.png';
-
+import ReactPlayer from 'react-player'
 import {
 
     Input,
@@ -34,7 +34,8 @@ const Detail = () => {
             <Row>
                 <Col sm="6">
                     <Card>
-                    <CardImg top width="50%" src={noImage}/>
+                    <ReactPlayer
+                            width = '100%' muted = 'false' url= 'https://meetupmedia.blob.core.windows.net/meetup-media/mediaTest.mp4' playing controls/>
                     <CardBody>
                         <CardTitle>{title}</CardTitle>
                     </CardBody>

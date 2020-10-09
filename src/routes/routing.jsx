@@ -16,12 +16,19 @@ var ThemeRoutes = [
     component: Upload
   },
   {
-    path: '/ui-components/button',
-    name: 'Test',
+    path: '/ui-components/detail',
+    name: 'Detail',
     icon: 'mdi mdi-toggle-switch',
     component: Detail
   },
-
+/*
+  {
+    path: '/ui-components/detail/:비디오번호',
+    name: 'Detail',
+    icon: 'mdi mdi-toggle-switch',
+    component: Detail
+  },
+*/
   {
     path: '/',
     pathTo: '/ui-components/card',
