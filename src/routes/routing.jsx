@@ -15,20 +15,22 @@ var ThemeRoutes = [
     icon: 'mdi mdi-toggle-switch',
     component: Upload
   },
+  
+  {
+    path: '/ui-components/detail/:title',
+    name: 'Upload',
+    icon: 'mdi mdi-toggle-switch',
+    component: Detail
+  },
+
   {
     path: '/ui-components/detail',
     name: 'Detail',
     icon: 'mdi mdi-toggle-switch',
     component: Detail
   },
-/*
-  {
-    path: '/ui-components/detail/:비디오번호',
-    name: 'Detail',
-    icon: 'mdi mdi-toggle-switch',
-    component: Detail
-  },
-*/
+
+
   {
     path: '/',
     pathTo: '/ui-components/card',

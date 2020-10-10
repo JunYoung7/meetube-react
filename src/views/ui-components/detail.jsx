@@ -23,7 +23,7 @@ import {
     Col
 } from 'reactstrap';
 
-const Detail = () => {
+const Detail = ({match}) => {
     /*
     넘어온 파라미터 
     */
@@ -41,7 +41,7 @@ const Detail = () => {
                     <ReactPlayer
                             width = '100%' muted = 'false' url= 'https://meetupmedia.blob.core.windows.net/meetup-media/mediaTest.mp4' playing controls/>
                     <CardBody>
-                        <CardTitle>{title}</CardTitle>
+                        <CardTitle>{match.params.title}</CardTitle>
                     </CardBody>
                     </Card>
                 </Col>

@@ -1,83 +1,57 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import Detail from './detail';
 import Video from '../../components/video/video'
-import ReactDOM from 'react-dom'
-import {
-    Card,
-    CardImg,
-    CardImgOverlay,
-    CardText,
-    CardBody,
-    CardTitle,
-    CardSubtitle,
-    CardColumns,
-    CardGroup,
-    CardDeck,
-    CardLink,
-    CardHeader,
-    CardFooter,
-    Button,
-    Row,
-    Col
-} from 'reactstrap';
+import { Row } from 'reactstrap';
 
+const url = 'http://localhost:8080/videos';
 
-import img1 from '../../assets/images/big/img1.jpg';
-import img2 from '../../assets/images/big/img2.jpg';
-import img3 from '../../assets/images/big/img3.jpg';
-import img4 from '../../assets/images/big/img4.jpg';
-import img5 from '../../assets/images/big/img5.jpg';
-import img6 from '../../assets/images/big/img6.jpg';
-import img7 from '../../assets/images/background/img5.jpg';
+const sampleVideos = [
+    {
+        title: "샘플 비디오 1",
+        thumbnail: "",
+        keyword: "샘플 비디오 키워드 1"
+    },
+    {
+        title: "샘플 비디오 2",
+        thumbnail: "",
+        keyword: "샘플 비디오 키워드 2"
+    },
+    {
+        title: "샘플 비디오 3",
+        thumbnail: "",
+        keyword: "샘플 비디오 키워드 3"
+    }
+];
 
 const Videos = () => {
-
-    const thumbnail = 0;
-    const title = 'test';
-    const keyword = 0;
-
-    const newVideo = Video(thumbnail, title, keyword);
-    const newVideo2 = Video(thumbnail, "yes", keyword);
-    console.log(newVideo);
-
-    const getVideos = () => {
-        const url = 'http://localhost:8080/videos';
-        //const formData = new FormData();
-        //formData.append('file',file)
-        fetch(url)
-            .then(res => res.json())
-            .then(data => console.log(data))
-    }
-
-    //getVideos();
-    
-    window.onload = () => {
-        //document.querySelector('.row').appendChild(newVideo);
-        ReactDOM.render(newVideo, document.querySelector('.row'));
-    }
-    
-    
+    // TODO: 아래 sampleVideo는 예시를 위해 둔 것, 빈 배열([])로 바꿀 것
+    const [videoList, setVideoList] = useState(sampleVideos);
+    useEffect(() => {
+        (async function () {
+            try {
+                const res = await fetch(url);
+                const result = res.json();
+                // 결과값을 useState로 업데이트 => 리렌더링
+            } catch (err) {
+                console.log(err);
+            }
+        })();
+    }, []);
 
     return (
         <div>
-            {/* --------------------------------------------------------------------------------*/}
-            {/* Row*/}
-            {/* --------------------------------------------------------------------------------*/}
             <h5 className="mb-3">Basic Cards</h5>
             <Row>
+                {videoList.map(({ thumbnail, title, keyword }, idx) => (
+                    <Video
+                        key={`video_${idx}`}
+                        thumbnail={thumbnail}
+                        title={title}
+                        keyword={keyword} />
+                ))}
             </Row>
-            
-            {/* --------------------------------------------------------------------------------*/}
-            {/* Row*/}
-            {/* --------------------------------------------------------------------------------*/}
-            {/* --------------------------------------------------------------------------------*/}
-            {/* End Inner Div*/}
-            {/* --------------------------------------------------------------------------------*/}
         </div>
-
     );
 }
 
 export default Videos;
-
-
