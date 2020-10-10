@@ -9,22 +9,26 @@ import {
     CardTitle,
     CardSubtitle,
     Button,
-    Col
+    Col,
+    Badge
 } from 'reactstrap';
 
 import sample from '../../assets/images/big/img1.jpg';
 
-const video = ({ thumbnail, title, keyword, uuid }) => {
+const video = ({ id, title, thumbnailUrl, keywords, description, caption, url }) => {
     
-    const moveUrl = `#/ui-components/detail/${uuid}`
+    const moveUrl = `#/ui-components/detail/${id}`
     return (
         <Col xs="12" md="4">
             <Card>
-                <CardImg top width="100%" src={thumbnail || sample} />
+                <CardImg top width="100%" src={thumbnailUrl || sample} />
                 <CardBody>
                     <CardTitle>{title}</CardTitle>
-                    <CardSubtitle>{keyword}</CardSubtitle>
-                        <CardText>Description ...</CardText>
+                        <CardText>
+                        {keywords.map((v) => (
+                                <Badge href="" color="dark" className="ml-3">{v}</Badge>
+                            ))}
+                        </CardText>
                         <a href = {moveUrl}>
                             <Button>Button</Button>
                         </a>

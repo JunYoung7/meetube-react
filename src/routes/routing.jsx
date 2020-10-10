@@ -22,6 +22,16 @@ var ThemeRoutes = [
     icon: 'mdi mdi-toggle-switch',
     component: Detail
   },
+
+  
+  {
+    path: '/ui-components/detail',
+    pathTo: '/ui-components/detail',
+    name: 'Dashboard2',
+    redirect: true
+  },
+  
+  
 /*
   {
     path: '/ui-components/detail',

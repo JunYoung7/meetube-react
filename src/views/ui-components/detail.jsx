@@ -24,22 +24,22 @@ import {
 } from 'reactstrap';
 
 const sampleVideo = {
+    uuid: '1',
     title: "샘플 비디오 1",
-    thumbnail: "",
-    keyword: [1,2,3,4],
+    thumbnailUrl: "",
+    keywords: [1,2,3,4],
     description: '샘플 description',
-    fullContents: "풀컨텐츠",
-    url: 'https://meetupmedia.blob.core.windows.net/meetup-media/mediaTest.mp4'
+    caption: "풀컨텐츠",
+    url: 'https://meetupmedia.blob.core.windows.net/meetup-media/mediaTest.mp4',
 };
 
-let url = 'http://localhost:8080/videos';
 
 const Detail = ({match}) => {
     /*
     넘어온 파라미터 
     */
 
-   let url = `http://localhost:8080/detail/${match.params.title}`;
+   let url = `http://localhost:8080/video/${match.params.uuid}`;
    const [video, setVideo] = useState(sampleVideo);
    useEffect(() => {
        (async function () {
@@ -47,11 +47,12 @@ const Detail = ({match}) => {
                const res = await fetch(url);
                const result = res.json();
                const newVideo = {
+                uuid : result.uuid,
                 title: result.title,
-                thumbnail: result.thumbnail,
-                keyword: result.keyword,
+                thumbnailUrl: result.thumbnailUrl,
+                keywords: result.keywords,
                 description : result.description,
-                fullContents: result.fullContents,
+                caption: result.caption,
                 url: result.url
             }
             setVideo(sampleVideo);
@@ -75,7 +76,7 @@ const Detail = ({match}) => {
                     <ReactPlayer
                             width = '100%' muted = 'false' url= {video.url} playing controls/>
                     <CardBody>
-                        <CardTitle>{video.title}</CardTitle>
+                        <CardTitle>{match.params.uuid}</CardTitle>
                     </CardBody>
                     </Card>
                 </Col>
@@ -83,7 +84,7 @@ const Detail = ({match}) => {
                     <Card>
                         <CardBody>
                             <CardTitle>Keyword</CardTitle>
-                            {video.keyword.map((v) => (
+                            {video.keywords.map((v) => (
                                 <Badge href="" color="dark" className="ml-3">{v}</Badge>
                             ))}
 
@@ -100,7 +101,7 @@ const Detail = ({match}) => {
                     <Card>
                         <CardBody>
                             <CardTitle>Full Contents</CardTitle>
-                            <CardText>{video.fullContents}</CardText>
+                            <CardText>{video.caption}</CardText>
                         </CardBody>
                     </Card>
 

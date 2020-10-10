@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
     Nav,
     NavItem,
@@ -11,7 +12,8 @@ import {
     DropdownMenu,
     DropdownItem,
     Form,
-    Input
+    Input,
+    Button
 } from 'reactstrap';
 
 /*--------------------------------------------------------------------------------*/
@@ -36,6 +38,11 @@ const Header = () => {
         document.getElementById('search').classList.toggle('show-search');
     }
 
+    
+
+    
+    const titlePath = `#/ui-components/card/123`
+    const keywordPath = `ui-components/video`
 
     return (
         <header className="topbar navbarbg" data-navbarbg="skin4">
@@ -80,19 +87,6 @@ const Header = () => {
                         {/* Start Search-box toggle                                                        */}
                         {/*--------------------------------------------------------------------------------*/}
                         <NavItem className="hidden-sm-down search-box">
-                            <NavLink
-                                href="#"
-                                className="hidden-sm-down"
-                                onClick={toggleMenu.bind(null)}
-                            >
-                                <i className="ti-search" />
-                            </NavLink>
-                            <Form className="app-search" id="search">
-                                <Input type="text" placeholder="Search & enter" />
-                                <button className="btn-link srh-btn" onClick={toggleMenu.bind(null)}>
-                                    <i className="ti-close" />
-                                </button>
-                            </Form>
                         </NavItem>
                         {/*--------------------------------------------------------------------------------*/}
                         {/* End Search-box toggle                                                          */}
