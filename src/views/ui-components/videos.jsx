@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {Link, Route, BrowserRouter as Router} from 'react-router-dom';
+import Detail from './detail';
 import {
     Card,
     CardImg,
@@ -28,7 +30,6 @@ import img6 from '../../assets/images/big/img6.jpg';
 import img7 from '../../assets/images/background/img5.jpg';
 
 const Videos = () => {
-
     /*
     함수 => () {
         response가 오면
@@ -37,7 +38,7 @@ const Videos = () => {
         render('/detail.jsx/비디오제목);
     }
     */
-   
+
     return (
         <div>
             {/* --------------------------------------------------------------------------------*/}
@@ -55,7 +56,9 @@ const Videos = () => {
                             <CardTitle>Card title</CardTitle>
                             <CardSubtitle>Card subtitle</CardSubtitle>
                             <CardText>Some quick example text to build on the card title and make up the bulk of the cards content.</CardText>
-                            <Button>Button</Button>
+                            <Link to ='/ui-components/detail'>
+                                <Button>Button</Button>
+                            </Link>
                         </CardBody>
                     </Card>
                 </Col>
@@ -110,6 +113,7 @@ const Videos = () => {
             {/* End Inner Div*/}
             {/* --------------------------------------------------------------------------------*/}
         </div>
+
     );
 }
 
