@@ -24,6 +24,10 @@ import {
 } from 'reactstrap';
 
 const Detail = () => {
+    /*
+    넘어온 파라미터 
+    */
+
     // For Dismiss Button with Alert
     const [visible, setVisible] = useState(true);
     const [title,setTitle] = useState("Title")
