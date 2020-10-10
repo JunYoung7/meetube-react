@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import noImage from '../../assets/images/big/no-item.png';
 import ReactPlayer from 'react-player'
 import {
@@ -23,10 +23,44 @@ import {
     Col
 } from 'reactstrap';
 
+const sampleVideo = {
+    title: "샘플 비디오 1",
+    thumbnail: "",
+    keyword: [1,2,3,4],
+    description: '샘플 description',
+    fullContents: "풀컨텐츠",
+    url: 'https://meetupmedia.blob.core.windows.net/meetup-media/mediaTest.mp4'
+};
+
+let url = 'http://localhost:8080/videos';
+
 const Detail = ({match}) => {
     /*
     넘어온 파라미터 
     */
+
+   let url = `http://localhost:8080/detail/${match.params.title}`;
+   const [video, setVideo] = useState(sampleVideo);
+   useEffect(() => {
+       (async function () {
+           try {
+               const res = await fetch(url);
+               const result = res.json();
+               const newVideo = {
+                title: result.title,
+                thumbnail: result.thumbnail,
+                keyword: result.keyword,
+                description : result.description,
+                fullContents: result.fullContents,
+                url: result.url
+            }
+            setVideo(sampleVideo);
+               // 결과값을 useState로 업데이트 => 리렌더링
+           } catch (err) {
+               console.log(err);
+           }
+       })();
+   }, []);
 
     // For Dismiss Button with Alert
     const [visible, setVisible] = useState(true);
@@ -39,9 +73,9 @@ const Detail = ({match}) => {
                 <Col sm="6">
                     <Card>
                     <ReactPlayer
-                            width = '100%' muted = 'false' url= 'https://meetupmedia.blob.core.windows.net/meetup-media/mediaTest.mp4' playing controls/>
+                            width = '100%' muted = 'false' url= {video.url} playing controls/>
                     <CardBody>
-                        <CardTitle>{match.params.title}</CardTitle>
+                        <CardTitle>{video.title}</CardTitle>
                     </CardBody>
                     </Card>
                 </Col>
@@ -49,25 +83,24 @@ const Detail = ({match}) => {
                     <Card>
                         <CardBody>
                             <CardTitle>Keyword</CardTitle>
-                            <Badge href="" color="dark" className="ml-3">Meet</Badge>
-                            <Badge href="" color="dark" className="ml-3">Meet</Badge>
-                            <Badge href="" color="dark" className="ml-3">Meet</Badge>
-                            <Badge href="" color="dark" className="ml-3">Meet</Badge>
+                            {video.keyword.map((v) => (
+                                <Badge href="" color="dark" className="ml-3">{v}</Badge>
+                            ))}
+
                         </CardBody>
                     </Card>
 
                     <Card>
                         <CardBody>
                             <CardTitle>Description</CardTitle>
-                            <CardText>Descript</CardText>
+                            <CardText>{video.description}</CardText>
                         </CardBody>
                     </Card>
 
                     <Card>
                         <CardBody>
                             <CardTitle>Full Contents</CardTitle>
-                            <CardText>DescriptDescriptDescriptDescript</CardText>
-                            <Button>See More</Button>
+                            <CardText>{video.fullContents}</CardText>
                         </CardBody>
                     </Card>
 

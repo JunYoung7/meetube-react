@@ -14,9 +14,9 @@ import {
 
 import sample from '../../assets/images/big/img1.jpg';
 
-const video = ({ thumbnail, title, keyword }) => {
+const video = ({ thumbnail, title, keyword, uuid }) => {
     
-    const moveUrl = `#/ui-components/detail/${title}`
+    const moveUrl = `#/ui-components/detail/${uuid}`
     return (
         <Col xs="12" md="4">
             <Card>

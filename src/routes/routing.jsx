@@ -17,19 +17,19 @@ var ThemeRoutes = [
   },
   
   {
-    path: '/ui-components/detail/:title',
-    name: 'Upload',
+    path: '/ui-components/detail/:uuid',
+    name: 'Detail',
     icon: 'mdi mdi-toggle-switch',
     component: Detail
   },
-
+/*
   {
     path: '/ui-components/detail',
     name: 'Detail',
     icon: 'mdi mdi-toggle-switch',
     component: Detail
   },
-
+*/
 
   {
     path: '/',

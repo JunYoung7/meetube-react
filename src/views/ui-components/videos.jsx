@@ -7,20 +7,36 @@ const url = 'http://localhost:8080/videos';
 
 const sampleVideos = [
     {
-        title: "샘플 비디오 1",
+        title: "sample1",
         thumbnail: "",
-        keyword: "샘플 비디오 키워드 1"
+        keyword: "sample keyword 1",
+        uuid: '123123'
     },
     {
-        title: "샘플 비디오 2",
+        title: "sample2",
         thumbnail: "",
-        keyword: "샘플 비디오 키워드 2"
+        keyword: "sample keyword 2",
+        uuid: '123123'
     },
     {
-        title: "샘플 비디오 3",
+        title: "sample3",
         thumbnail: "",
-        keyword: "샘플 비디오 키워드 3"
-    }
+        keyword: "sample keyword 3",
+        uuid: '123123'
+    },
+    {
+        title: "sample3",
+        thumbnail: "",
+        keyword: "sample keyword 3",
+        uuid: '123123'
+    },
+    {
+        title: "sample3",
+        thumbnail: "",
+        keyword: "sample keyword 3",
+        uuid: '123123'
+    },
+    
 ];
 
 const Videos = () => {
@@ -31,6 +47,14 @@ const Videos = () => {
             try {
                 const res = await fetch(url);
                 const result = res.json();
+                const newVideo = {
+                    title: result.title,
+                    thumbnail: result.thumbnail,
+                    keyword: result.keyword,
+                    uuid: result.uuid
+                }
+                sampleVideos.push(newVideo);
+                setVideoList(sampleVideos);
                 // 결과값을 useState로 업데이트 => 리렌더링
             } catch (err) {
                 console.log(err);
@@ -42,12 +66,13 @@ const Videos = () => {
         <div>
             <h5 className="mb-3">Basic Cards</h5>
             <Row>
-                {videoList.map(({ thumbnail, title, keyword }, idx) => (
+                {videoList.map(({ thumbnail, title, keyword, uuid }, idx) => (
                     <Video
                         key={`video_${idx}`}
                         thumbnail={thumbnail}
                         title={title}
-                        keyword={keyword} />
+                        keyword={keyword}
+                        uuid={uuid} />
                 ))}
             </Row>
         </div>
