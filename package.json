@@ -4,6 +4,7 @@
     "homepage": "http://wrappixel.com/demos/free-admin-templates/materialpro-reactadmin-lite/main/",
     "private": true,
     "dependencies": {
+        "axios": "^0.20.0",
         "bootstrap": "^4.5.2",
         "chart.js": "2.7.2",
         "history": "4.7.2",
