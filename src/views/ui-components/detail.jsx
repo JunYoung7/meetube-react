@@ -39,13 +39,13 @@ const Detail = ({match}) => {
     넘어온 파라미터 
     */
 
-   let url = `http://localhost:8080/video/${match.params.uuid}`;
+   let url = `http://183.107.12.250:40404/video/video/${match.params.uuid}`;
    const [video, setVideo] = useState(sampleVideo);
    useEffect(() => {
        (async function () {
            try {
                const res = await fetch(url);
-               const result = res.json();
+               const result = await res.json();
                const newVideo = {
                 uuid : result.uuid,
                 title: result.title,
@@ -55,7 +55,7 @@ const Detail = ({match}) => {
                 caption: result.caption,
                 url: result.url
             }
-            setVideo(sampleVideo);
+            setVideo(newVideo);
                // 결과값을 useState로 업데이트 => 리렌더링
            } catch (err) {
                console.log(err);
@@ -76,7 +76,7 @@ const Detail = ({match}) => {
                     <ReactPlayer
                             width = '100%' muted = 'false' url= {video.url} playing controls/>
                     <CardBody>
-                        <CardTitle>{match.params.uuid}</CardTitle>
+                        <CardTitle>{video.title}</CardTitle>
                     </CardBody>
                     </Card>
                 </Col>

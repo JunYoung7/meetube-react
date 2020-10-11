@@ -3,48 +3,32 @@ import Detail from './detail';
 import Video from '../../components/video/video'
 import { Row, Form, Input, Button } from 'reactstrap';
 
-const url = 'http://183.107.12.250:40404/videos';
+const url = 'http://183.107.12.250:40404/video/video';
 
 let sampleVideos = [
-    {
-        id: '1',
-        title: "샘플 비디오 1",
-        thumbnailUrl: "",
-        keywords: [1,2,3,4],
-        description: '샘플 description',
-        caption: "풀컨텐츠",
-        url: 'https://meetupmedia.blob.core.windows.net/meetup-media/mediaTest.mp4',
-    },
-    {
-        id: '1',
-        title: "샘플 비디오 2",
-        thumbnailUrl: "",
-        keywords: [1,2,3,4],
-        description: '샘플 description',
-        caption: "풀컨텐츠",
-        url: 'https://meetupmedia.blob.core.windows.net/meetup-media/mediaTest.mp4',
-    }
-
-    
 ];
 
 const Videos = () => {
     // TODO: 아래 sampleVideo는 예시를 위해 둔 것, 빈 배열([])로 바꿀 것
     const [videoList, setVideoList] = useState(sampleVideos);
+    
     useEffect(() => {
         (async function () {
             try {
                 const res = await fetch(url);
-                const result = res.json();
-                for (let i = 0; i < result.videos.length; i++){
-                    const newVideo = {
-                        id: result.videos[i].id,
-                        title: result.videos[i].title,
-                        thumbnailUrl: result.videos[i].thumbnailUrl,
-                        keywords: result.videos[i].keywords,
-                        description: result.videos[i].description,
-                        caption: result.videos[i].caption,
-                        url: result.videos[i].url
+                sampleVideos = [];
+                
+                const result = await res.json();
+                console.log(result);
+                for (let i = 0; i < result.length; i++){
+                    let newVideo = {
+                        id: result[i].id,
+                        title: result[i].title,
+                        thumbnailUrl: result[i].thumbnailUrl,
+                        keywords: result[i].keywords,
+                        description: result[i].description,
+                        caption: result[i].caption,
+                        url: result[i].url
                     }
                     sampleVideos.push(newVideo);
                     setVideoList(sampleVideos);
@@ -59,24 +43,23 @@ const Videos = () => {
 
     const keywordSearch = () => {
         let searchKeyword = '[' + document.getElementById('searchArea').value + ']';
+        let keywordSearchUrl = 'http://183.107.12.250:40404/video/video?keywords=' + searchKeyword;
 
-        const keywordSearchUrl = `http://localhost:8080/video?keywords="${searchKeyword}"`
-        sampleVideos = [];
         (async function () {
             try {
                 const res = await fetch(keywordSearchUrl);
-                const result = res.json();
-                for (let i = 0; i < result.videos.length; i++){
-                    const newVideo = {
-                        id: result.videos[i].id,
-                        title: result.videos[i].title,
-                        thumbnailUrl: result.videos[i].thumbnailUrl,
-                        keywords: result.videos[i].keywords,
-                        description: result.videos[i].description,
-                        caption: result.videos[i].caption,
-                        url: result.videos[i].url
+                const result = await res.json();
+                for (let i = 0; i < result.length; i++){
+                    let newVideo = {
+                        id: result[i].id,
+                        title: result[i].title,
+                        thumbnailUrl: result[i].thumbnailUrl,
+                        keywords: result[i].keywords,
+                        description: result[i].description,
+                        caption: result[i].caption,
+                        url: result[i].url
                     }
-                    
+                    sampleVideos = [];
                     sampleVideos.push(newVideo);
                     setVideoList(sampleVideos);
                 }
@@ -88,24 +71,25 @@ const Videos = () => {
     }
 
     const titleSearch = () => {
-        const searchTitle = document.getElementById('searchArea').value;
-        const titleSearchUrl = `http://localhost:8080/video?title="${searchTitle}"`
+        let searchTitle = document.getElementById('searchArea').value;
+        let titleSearchUrl = 'http://183.107.12.250:40404/video/video?title=' + searchTitle;
         sampleVideos = [];
+
         (async function () {
             try {
                 const res = await fetch(titleSearchUrl);
-                const result = res.json();
-                for (let i = 0; i < result.videos.length; i++){
-                    const newVideo = {
-                        id: result.videos[i].id,
-                        title: result.videos[i].title,
-                        thumbnailUrl: result.videos[i].thumbnailUrl,
-                        keywords: result.videos[i].keywords,
-                        description: result.videos[i].description,
-                        caption: result.videos[i].caption,
-                        url: result.videos[i].url
+                const result = await res.json();
+                console.log(result[0]);
+                for (let i = 0; i < result.length; i++){
+                    let newVideo = {
+                        id: result[i].id,
+                        title: result[i].title,
+                        thumbnailUrl: result[i].thumbnailUrl,
+                        keywords: result[i].keywords,
+                        description: result[i].description,
+                        caption: result[i].caption,
+                        url: result[i].url
                     }
-                    
                     sampleVideos.push(newVideo);
                     setVideoList(sampleVideos);
                 }
