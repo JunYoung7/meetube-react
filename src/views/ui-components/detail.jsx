@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import noImage from '../../assets/images/big/no-item.png';
-
+import ReactPlayer from 'react-player'
 import {
 
     Input,
@@ -23,7 +23,46 @@ import {
     Col
 } from 'reactstrap';
 
-const Detail = () => {
+const sampleVideo = {
+    uuid: '1',
+    title: "샘플 비디오 1",
+    thumbnailUrl: "",
+    keywords: [1,2,3,4],
+    description: '샘플 description',
+    caption: "풀컨텐츠",
+    url: 'https://meetupmedia.blob.core.windows.net/meetup-media/mediaTest.mp4',
+};
+
+
+const Detail = ({match}) => {
+    /*
+    넘어온 파라미터 
+    */
+
+   let url = `http://183.107.12.250:40404/video/video/${match.params.uuid}`;
+   const [video, setVideo] = useState(sampleVideo);
+   useEffect(() => {
+       (async function () {
+           try {
+               const res = await fetch(url);
+               const result = await res.json();
+               const newVideo = {
+                uuid : result.uuid,
+                title: result.title,
+                thumbnailUrl: result.thumbnailUrl,
+                keywords: result.keywords,
+                description : result.description,
+                caption: result.caption,
+                url: result.url
+            }
+            setVideo(newVideo);
+               // 결과값을 useState로 업데이트 => 리렌더링
+           } catch (err) {
+               console.log(err);
+           }
+       })();
+   }, []);
+
     // For Dismiss Button with Alert
     const [visible, setVisible] = useState(true);
     const [title,setTitle] = useState("Title")
@@ -34,9 +73,10 @@ const Detail = () => {
             <Row>
                 <Col sm="6">
                     <Card>
-                    <CardImg top width="50%" src={noImage}/>
+                    <ReactPlayer
+                            width = '100%' muted = 'false' url= {video.url} playing controls/>
                     <CardBody>
-                        <CardTitle>{title}</CardTitle>
+                        <CardTitle>{video.title}</CardTitle>
                     </CardBody>
                     </Card>
                 </Col>
@@ -44,25 +84,24 @@ const Detail = () => {
                     <Card>
                         <CardBody>
                             <CardTitle>Keyword</CardTitle>
-                            <Badge href="" color="dark" className="ml-3">Meet</Badge>
-                            <Badge href="" color="dark" className="ml-3">Meet</Badge>
-                            <Badge href="" color="dark" className="ml-3">Meet</Badge>
-                            <Badge href="" color="dark" className="ml-3">Meet</Badge>
+                            {video.keywords.map((v) => (
+                                <Badge href="" color="dark" className="ml-3">{v}</Badge>
+                            ))}
+
                         </CardBody>
                     </Card>
 
                     <Card>
                         <CardBody>
                             <CardTitle>Description</CardTitle>
-                            <CardText>Descript</CardText>
+                            <CardText>{video.description}</CardText>
                         </CardBody>
                     </Card>
 
                     <Card>
                         <CardBody>
                             <CardTitle>Full Contents</CardTitle>
-                            <CardText>DescriptDescriptDescriptDescript</CardText>
-                            <Button>See More</Button>
+                            <CardText>{video.caption}</CardText>
                         </CardBody>
                     </Card>
 

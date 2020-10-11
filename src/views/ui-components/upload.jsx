@@ -56,7 +56,7 @@ const Upload = () => {
     }
 
     const fileUpload = (file) => {
-        const url = 'http://localhost:8080/upload';
+        const url = 'http://183.107.12.250:40404/upload';
         const formData = new FormData();
         formData.append('file',file)
         const config = {
